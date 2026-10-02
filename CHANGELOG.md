@@ -1,8 +1,8 @@
-# Changelog
+# Changelog — Skybound Redesign v14.1
 
-## 3D Milestone 1
-- Rebuilt from zero with a new modular WebGL 2 engine.
-- Added procedural airport, terrain and animated ocean.
-- Added detailed JX-200 geometry and basic flight physics.
-- Added chase/cockpit cameras and compact non-overlapping HUD.
-- No external runtime dependencies.
+- Based on the stable `Skybound_UrbanSupersonic_v14` simulator
+- Preserved the original aircraft visuals and underlying simulation logic
+- Added external redesign stylesheet overrides
+- Added small UI text refresh script
+- Rethemed the simulator to a cleaner navy / cyan / amber look
+- Improved panel spacing and non-overlap on common desktop widths

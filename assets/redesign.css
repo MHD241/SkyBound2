@@ -1,0 +1,103 @@
+
+:root{
+  --sb-bg:#09131d;
+  --sb-bg-2:#0d1d2b;
+  --sb-panel:rgba(8,17,28,.84);
+  --sb-panel-2:rgba(10,24,37,.92);
+  --sb-line:rgba(98,177,223,.22);
+  --sb-text:#edf5fb;
+  --sb-muted:#9cb6c9;
+  --sb-cyan:#58d7ff;
+  --sb-amber:#ffbc57;
+  --sb-green:#87f59d;
+  --sb-shadow:0 18px 42px rgba(0,0,0,.35);
+}
+body{background:var(--sb-bg)!important;color:var(--sb-text)!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+.simulator{background:radial-gradient(circle at top, rgba(88,215,255,.08), transparent 30%),linear-gradient(180deg,#0a1724 0%,#07111a 100%)!important}
+.vignette{background:radial-gradient(circle at center, transparent 38%, rgba(3,8,14,.24) 68%, rgba(1,5,9,.56) 100%)!important}
+.glass,.briefing,.tower-panel,.map-panel,.passenger-panel,.throttle-control,.instrument-bar,.bottom-strip,.view-controls button,.top-actions button,.controls-dialog,.pause-card,.notice{backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important;box-shadow:var(--sb-shadow)!important}
+.topbar{top:16px!important;left:16px!important;right:16px!important;height:70px!important;padding:0 16px!important;border-radius:20px!important;background:linear-gradient(180deg,rgba(13,30,45,.92),rgba(7,16,26,.94))!important;border:1px solid var(--sb-line)!important;box-shadow:0 18px 45px rgba(0,0,0,.38)!important}
+.brand{gap:14px!important}
+.brand-icon{width:44px!important;height:44px!important;border-radius:14px!important;background:linear-gradient(135deg,#5de1ff,#1d6e95)!important;color:#00151f!important;box-shadow:0 0 0 1px rgba(255,255,255,.08) inset,0 10px 20px rgba(0,0,0,.22)!important}
+.brand span{color:var(--sb-text)!important;font-weight:800!important;letter-spacing:.12em!important}
+.brand small{display:block!important;margin-top:2px!important;color:var(--sb-muted)!important;letter-spacing:.18em!important;font-size:10px!important}
+.location{padding:10px 16px!important;border-radius:14px!important;background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.06)!important;color:#dfeaf2!important;gap:12px!important}
+.location-divider{height:18px!important;background:rgba(255,255,255,.12)!important;width:1px!important}
+.top-actions{gap:10px!important}
+.top-actions .icon-button,.top-actions .pause-button{height:44px!important;min-width:44px!important;padding:0 14px!important;border-radius:14px!important;border:1px solid rgba(255,255,255,.08)!important;background:rgba(255,255,255,.04)!important;color:#eaf7ff!important;transition:transform .18s ease,background .18s ease,border-color .18s ease!important}
+.top-actions .icon-button:hover,.top-actions .pause-button:hover,.view-controls button:hover,.airport-picker button:hover,.launch-button:hover,.atc-call:hover{transform:translateY(-1px)!important;background:rgba(88,215,255,.12)!important;border-color:rgba(88,215,255,.34)!important}
+.top-actions .icon-button.active{background:rgba(255,188,87,.12)!important;border-color:rgba(255,188,87,.4)!important;color:#ffe5b5!important}
+.view-controls{top:104px!important;right:18px!important}
+.view-controls button{height:52px!important;padding:0 16px!important;border-radius:16px!important;border:1px solid var(--sb-line)!important;background:var(--sb-panel)!important;color:var(--sb-text)!important;gap:12px!important}
+.view-controls kbd,.tower-panel kbd,.bottom-strip kbd,.top-actions kbd,.throttle-keys kbd,.touch-controls kbd{background:rgba(255,255,255,.08)!important;border:1px solid rgba(255,255,255,.08)!important;color:#d9edf8!important;border-radius:8px!important;padding:3px 6px!important}
+.briefing{left:22px!important;top:112px!important;width:392px!important;border-radius:28px!important;padding:26px!important;background:linear-gradient(180deg,rgba(9,19,31,.92),rgba(6,13,23,.92))!important;border:1px solid var(--sb-line)!important;color:var(--sb-text)!important}
+.briefing .eyebrow{color:var(--sb-cyan)!important;letter-spacing:.18em!important;font-size:12px!important}
+.short-line{background:var(--sb-cyan)!important;box-shadow:0 0 12px rgba(88,215,255,.55)!important}
+.briefing h1{font-size:60px!important;line-height:.95!important;letter-spacing:-.06em!important;color:#f8fbfe!important;margin:14px 0 18px!important}
+.briefing h1 em{font-style:normal!important;color:var(--sb-amber)!important;text-shadow:0 0 18px rgba(255,188,87,.22)!important}
+.briefing p{font-size:15px!important;line-height:1.6!important;color:#c4d7e6!important;margin-bottom:20px!important}
+.airport-picker{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important}
+.airport-picker button{min-height:68px!important;padding:14px 12px!important;border-radius:16px!important;border:1px solid rgba(255,255,255,.08)!important;background:rgba(255,255,255,.035)!important;color:#dce7ef!important;text-align:left!important}
+.airport-picker button[aria-pressed="true"]{background:linear-gradient(180deg,rgba(88,215,255,.16),rgba(88,215,255,.06))!important;border-color:rgba(88,215,255,.42)!important;box-shadow:0 0 0 1px rgba(88,215,255,.12) inset!important}
+.airport-picker b{display:block!important;font-size:30px!important;line-height:1!important;color:#fff!important;margin-bottom:7px!important}
+.aircraft-spec{margin:18px 0 16px!important;padding:14px 16px!important;border-radius:18px!important;background:rgba(255,255,255,.035)!important;border:1px solid rgba(255,255,255,.08)!important;color:#d4e6f5!important}
+.aircraft-spec strong{font-size:15px!important;letter-spacing:.04em!important;color:#ffffff!important}
+.aircraft-spec span{display:block!important;margin-top:3px!important;color:var(--sb-muted)!important}
+.launch-button,.text-button,.passenger-mode-btn,.atc-call,.tower-panel button,.pause-card .launch-button,.pause-card .text-button{border-radius:16px!important;border:1px solid rgba(255,255,255,.08)!important}
+.launch-button{height:54px!important;background:linear-gradient(135deg,#ffbf5a,#ff9d35)!important;color:#1c1308!important;font-weight:800!important;box-shadow:0 16px 30px rgba(255,157,53,.22)!important}
+.text-button,.passenger-mode-btn{background:rgba(255,255,255,.04)!important;color:#e7f5ff!important}
+.tower-panel{left:22px!important;bottom:128px!important;width:336px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(9,19,31,.9),rgba(6,13,23,.9))!important;border:1px solid var(--sb-line)!important;color:#e4edf4!important}
+.tower-header strong{letter-spacing:.08em!important}
+.radio-frequency span,.sequence-heading,.taxi-assist span,.tower-body p,.own-clearance{color:#c3d8e9!important}
+.clearance-strip{border-radius:14px!important;background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.08)!important;color:#dbe7ee!important}
+.clearance-strip.cleared{background:rgba(135,245,157,.12)!important;border-color:rgba(135,245,157,.32)!important;color:#ebfff0!important}
+.clearance-strip.incident{background:rgba(255,82,82,.12)!important;border-color:rgba(255,82,82,.34)!important;color:#ffd8d8!important}
+.atc-call{background:linear-gradient(135deg,#55d5ff,#2a86b1)!important;color:#03141d!important;font-weight:800!important}
+.throttle-control{right:22px!important;bottom:140px!important;width:236px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(9,19,31,.9),rgba(6,13,23,.9))!important;border:1px solid var(--sb-line)!important}
+.touch-controls{display:none!important}
+.map-panel{right:22px!important;bottom:128px!important;width:290px!important;height:310px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(9,19,31,.92),rgba(6,13,23,.9))!important;border:1px solid var(--sb-line)!important;overflow:hidden!important}
+.map-head,.map-foot{padding:14px 16px!important;background:rgba(255,255,255,.03)!important;color:#dbe8f2!important}
+.map-head span{letter-spacing:.18em!important;font-size:12px!important;color:var(--sb-cyan)!important}
+.map-panel canvas{margin:12px!important;width:calc(100% - 24px)!important;height:calc(100% - 88px)!important;border-radius:18px!important;background:linear-gradient(180deg,#082133,#061722)!important;border:1px solid rgba(88,215,255,.12)!important}
+.passenger-panel{right:22px!important;top:112px!important;width:300px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(9,19,31,.9),rgba(6,13,23,.9))!important;border:1px solid var(--sb-line)!important}
+.career-total b,.route-title span,.passenger-count b{color:#fff!important}
+.instrument-bar{left:22px!important;right:22px!important;bottom:22px!important;height:92px!important;padding:0 18px!important;border-radius:24px!important;background:linear-gradient(180deg,rgba(9,19,31,.95),rgba(6,13,23,.96))!important;border:1px solid var(--sb-line)!important;display:grid!important;grid-template-columns:220px repeat(4,minmax(0,1fr)) 220px!important;gap:8px!important;align-items:center!important}
+.aircraft-label{height:68px!important;padding:0 18px!important;border-radius:18px!important;background:rgba(255,255,255,.04)!important;border:1px solid rgba(255,255,255,.06)!important;justify-content:center!important}
+.aircraft-line{font-size:28px!important;letter-spacing:.08em!important;color:#fff!important}
+.instrument{height:68px!important;padding:8px 14px!important;border-radius:18px!important;background:rgba(255,255,255,.03)!important;border:1px solid rgba(255,255,255,.05)!important}
+.instrument label{color:#9db7c8!important;font-size:11px!important;letter-spacing:.16em!important}
+.instrument b{font-size:22px!important;color:#fff!important}
+.instrument span{color:#cde2ef!important}
+.meter{background:rgba(255,255,255,.05)!important;border-radius:999px!important;height:6px!important}
+.meter i{background:linear-gradient(90deg,var(--sb-cyan),var(--sb-amber))!important;border-radius:999px!important}
+.bottom-strip{left:50%!important;transform:translateX(-50%)!important;bottom:126px!important;padding:10px 16px!important;height:auto!important;border-radius:16px!important;background:rgba(8,17,28,.84)!important;border:1px solid rgba(255,255,255,.08)!important;box-shadow:var(--sb-shadow)!important;display:inline-flex!important;gap:16px!important;max-width:fit-content!important;color:#d3e4ef!important}
+.status-dot{background:var(--sb-green)!important;box-shadow:0 0 12px rgba(135,245,157,.55)!important}
+.pause-overlay{background:rgba(4,10,16,.56)!important}
+.pause-card{border-radius:28px!important;background:linear-gradient(180deg,rgba(9,19,31,.96),rgba(6,13,23,.96))!important;border:1px solid var(--sb-line)!important;color:#eff7fd!important}
+.pause-card h2{font-size:40px!important;letter-spacing:-.04em!important}
+.notice{bottom:232px!important;border-radius:16px!important;background:rgba(10,24,37,.92)!important;border:1px solid var(--sb-line)!important;color:#eef7fb!important}
+.airport-edition,.flight-reticle{display:none!important}
+@media (max-width: 1200px){
+  .briefing{width:350px!important}
+  .tower-panel{width:308px!important}
+  .map-panel,.passenger-panel,.throttle-control{width:260px!important}
+  .instrument-bar{grid-template-columns:180px repeat(4,minmax(0,1fr)) 180px!important}
+}
+@media (max-width: 980px){
+  .topbar{height:auto!important;padding:14px!important;flex-wrap:wrap!important;gap:10px!important}
+  .briefing,.passenger-panel{top:132px!important}
+  .instrument-bar{left:12px!important;right:12px!important;bottom:12px!important;height:auto!important;padding:12px!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .aircraft-label{grid-column:1/-1!important}
+  .tower-panel{left:12px!important;bottom:176px!important;width:280px!important}
+  .throttle-control{right:12px!important;bottom:176px!important;width:210px!important}
+  .map-panel{right:12px!important;bottom:176px!important;width:230px!important;height:270px!important}
+  .passenger-panel{display:none!important}
+  .bottom-strip{bottom:154px!important}
+}
+@media (max-width: 760px){
+  .briefing{left:12px!important;right:12px!important;width:auto!important;top:132px!important}
+  .tower-panel{left:12px!important;right:12px!important;width:auto!important;bottom:340px!important}
+  .view-controls,.throttle-control,.map-panel{display:none!important}
+  .bottom-strip{display:none!important}
+  .instrument-bar{grid-template-columns:1fr!important}
+}
