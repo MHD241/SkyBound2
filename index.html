@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Skybound 3D — Milestone 1</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<div id="boot" class="screen">
+  <div class="brand">SKYBOUND <span>3D</span></div>
+  <div class="subtitle">Milestone 1 · New engine</div>
+  <button id="play">START FLIGHT</button>
+  <div class="boot-note">One airport · one aircraft · proper 3D foundation</div>
+</div>
+<canvas id="gl"></canvas>
+<div id="hud" class="hidden">
+  <div class="topbar">
+    <div class="brand small">SKYBOUND <span>3D</span></div>
+    <div id="status">NORTHPOINT INTERNATIONAL · JX-200</div>
+    <button id="cameraBtn" class="hudbtn">CAM: CHASE</button>
+  </div>
+  <div class="flightbox">
+    <div><b id="speed">0</b><span>KT</span></div>
+    <div><b id="alt">0</b><span>FT</span></div>
+    <div><b id="hdg">000</b><span>HDG</span></div>
+    <div><b id="thr">0</b><span>THR</span></div>
+  </div>
+  <div class="controls">
+    <b>FLIGHT</b> ↑↓ pitch · ←→ roll · A/D rudder · W/S throttle · C camera · R reset
+  </div>
+  <div id="msg"></div>
+</div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
