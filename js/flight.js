@@ -1,9 +1,0 @@
-import {clamp} from './math.js';
-export class Flight{
- constructor(){this.pos=[0,4.2,-1950];this.yaw=-Math.PI/2;this.pitch=0;this.bank=0;this.speed=0;this.throttle=0;this.vy=0;this.onGround=true;this.keys=new Set();addEventListener('keydown',e=>{if(!['INPUT','TEXTAREA'].includes(e.target?.tagName||'')){this.keys.add(e.code);if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(e.code))e.preventDefault()}});addEventListener('keyup',e=>this.keys.delete(e.code))}
- reset(){Object.assign(this,{pos:[0,4.2,-1950],yaw:-Math.PI/2,pitch:0,bank:0,speed:0,throttle:0,vy:0,onGround:true})}
- update(dt){if(this.keys.has('KeyW'))this.throttle+=dt*.32;if(this.keys.has('KeyS'))this.throttle-=dt*.32;this.throttle=clamp(this.throttle,0,1);const roll=(this.keys.has('ArrowLeft')?1:0)-(this.keys.has('ArrowRight')?1:0),pitch=(this.keys.has('ArrowUp')?1:0)-(this.keys.has('ArrowDown')?1:0),rud=(this.keys.has('KeyA')?1:0)-(this.keys.has('KeyD')?1:0);const targetBank=roll*.58,targetPitch=pitch*.20;this.bank+=(targetBank-this.bank)*Math.min(1,dt*3.7);this.pitch+=(targetPitch-this.pitch)*Math.min(1,dt*2.8);const thrust=this.throttle*(this.onGround?24:15),drag=.0017*this.speed*this.speed+1.15;this.speed=Math.max(0,this.speed+(thrust-drag)*dt);const steer=this.onGround?(.26+this.speed*.002):(.08+this.speed*.0009);this.yaw+=(rud*.65-Math.sin(this.bank)*steer)*dt;const lift=Math.max(0,(this.speed-42)*.08);if(this.onGround){this.pos[1]=4.2;if(this.speed>61&&this.pitch>0.03){this.onGround=false;this.vy=3}}else{this.vy+=(lift+Math.sin(this.pitch)*10-7.6)*dt;this.vy*=Math.pow(.96,dt*60);this.pos[1]+=this.vy*dt;if(this.pos[1]<4.2){this.pos[1]=4.2;this.vy=0;this.onGround=true;this.pitch*=.7}}
- const groundSpeed=this.speed*(this.onGround?1:1.15);this.pos[0]+=Math.cos(this.yaw)*groundSpeed*dt;this.pos[2]-=Math.sin(this.yaw)*groundSpeed*dt;
- }
- get knots(){return this.speed*1.94384}get feet(){return this.pos[1]*3.28084}
-}
