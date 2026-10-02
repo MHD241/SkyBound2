@@ -12,3 +12,5 @@
 - Added MENU button to return to the start flow by clean reload
 - Modernised active-flight top bar and HUD spacing
 - Preserved existing aircraft and simulator logic
+
+- v1.1: Fixed passenger boarding at dynamically assigned gates; removed A01-only boarding dependency.
