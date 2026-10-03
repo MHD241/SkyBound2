@@ -1,16 +1,18 @@
-# Skybound Ground Crew — M5
+# Skybound Ground Crew M6 — Direction & Articulation Fix
 
-Ground Crew continues to use the exact Pilot Mode airport/world.
+This build keeps the exact same Pilot Mode airport world and fixes the Ground Crew handling model.
 
-## Ground Crew controls
-- **W** — gas / accelerate forward
-- **S** — brake; when stopped, continue holding to reverse
-- **A / D** — smooth left/right steering
-- **Space** — hard brake
-- **E** — enter/exit tug, connect/disconnect
-- **Shift** — faster walking
-- **Mouse drag** — camera
+## Controls
+- W: gas toward the tug's visible front
+- S: brake, then reverse once stopped
+- A / D: steer left / right relative to the tug body
+- Space: hard brake
+- E: enter / exit / connect / disconnect
+- WASD on foot: camera-relative movement
 
-Walking is camera-relative: W moves in the direction the camera is facing.
-
-Pushback now connects at the aircraft nose gear. The aircraft follows an articulated main-gear pivot rather than being glued to the tug.
+## M6 changes
+- Corrected worker left/right movement.
+- Corrected tug forward/reverse orientation to match the visible vehicle shape.
+- Corrected tug left/right steering.
+- Replaced the previous unstable pivot with a constrained nose-hitch/main-gear articulation model.
+- Added white front lamps and red rear lamps to make the tug's orientation obvious.
