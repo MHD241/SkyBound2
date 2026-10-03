@@ -68,8 +68,7 @@
       const chosen=airportButtons.find(b=>(b.querySelector('b')?.textContent||'').trim()===state.airport);chosen?.click();
       window.__skyboundGroundMode=true;
       window.__skyboundAircraftChoice='JX-200';
-      const gates=['A01','A04','A08','B03','B07','B12','C02','C09'];
-      window.__skyboundGateChoice=gates[Math.floor(Math.random()*gates.length)];
+      window.__skyboundGateChoice='B06';
       const gateSelect=document.querySelector('.v13-gate');if(gateSelect){gateSelect.value=window.__skyboundGateChoice;gateSelect.dispatchEvent(new Event('change',{bubbles:true}))}
       const launch=await waitFor('.briefing .launch-button');
       document.body.classList.add('sbm-flight-mode','sbm-ground-mode');
