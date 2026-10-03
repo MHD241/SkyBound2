@@ -63,22 +63,41 @@
     const btn=document.getElementById('sbmAirportNext');
     const original=btn.textContent;btn.disabled=true;btn.textContent='LOADING AIRPORT…';
     try{
+      // First launch the NORMAL Pilot Mode world at the selected airport and gate.
+      // Ground Crew is only enabled after that spawn has genuinely completed.
+      window.__skyboundGroundMode=false;
+      delete window.__sbGCState;
       const brief=await waitFor('.briefing');
       const airportButtons=[...document.querySelectorAll('.airport-picker button')];
       const chosen=airportButtons.find(b=>(b.querySelector('b')?.textContent||'').trim()===state.airport);chosen?.click();
-      window.__skyboundGroundMode=true;
       window.__skyboundAircraftChoice='JX-200';
       window.__skyboundGateChoice='B06';
-      const gateSelect=document.querySelector('.v13-gate');if(gateSelect){gateSelect.value=window.__skyboundGateChoice;gateSelect.dispatchEvent(new Event('change',{bubbles:true}))}
+      const gateSelect=document.querySelector('.v13-gate');
+      if(gateSelect){gateSelect.value=window.__skyboundGateChoice;gateSelect.dispatchEvent(new Event('change',{bubbles:true}))}
       const launch=await waitFor('.briefing .launch-button');
       document.body.classList.add('sbm-flight-mode','sbm-ground-mode');
       document.getElementById('sbmMenu')?.remove();
       launch.click();
+
+      // Wait for React/flight state to leave the setup screen AND for the pilot
+      // aircraft to be grounded at its real gate before swapping control target.
+      await waitUntil(()=>{
+        const ps=window.__sbPilotState;
+        return !!ps && ps.phase!=='ready' && ps.grounded===true && Number.isFinite(ps.x) && Number.isFinite(ps.z);
+      },8000,'Pilot gate spawn did not complete');
+      // Give the renderer two frames to finish moving terminals/camera around the gate spawn.
+      await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+
+      window.__skyboundGroundMode=true;
       const started=Date.now();while(!window.SkyboundGroundCrew&&Date.now()-started<5000)await new Promise(r=>setTimeout(r,50));
       if(!window.SkyboundGroundCrew)throw new Error('Ground Crew controller did not load');
       window.SkyboundGroundCrew.start({airport:state.airport,gate:window.__skyboundGateChoice});
-    }catch(err){console.error(err);window.__skyboundGroundMode=false;btn.disabled=false;btn.textContent='TRY AGAIN';alert('Ground Crew Mode could not start. Reload once and try again.');}
+    }catch(err){console.error(err);window.__skyboundGroundMode=false;btn.disabled=false;btn.textContent='TRY AGAIN';alert('Ground Crew Mode could not start: '+(err?.message||err));}
     finally{if(document.body.contains(btn)){btn.disabled=false;btn.textContent=original}}
+  }
+
+  function waitUntil(test,timeout=8000,message='Timed out'){
+    return new Promise((resolve,reject)=>{const start=Date.now();const tick=()=>{let ok=false;try{ok=!!test()}catch(_){}if(ok)return resolve();if(Date.now()-start>timeout)return reject(new Error(message));requestAnimationFrame(tick)};tick()});
   }
 
   function waitFor(sel,timeout=8000){return new Promise((resolve,reject)=>{const start=Date.now();const t=setInterval(()=>{const n=document.querySelector(sel);if(n){clearInterval(t);resolve(n)}else if(Date.now()-start>timeout){clearInterval(t);reject(new Error('Missing '+sel))}},80)})}

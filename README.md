@@ -1,12 +1,5 @@
-# Skybound Ground Crew — Same Pilot World M3
+# Skybound Ground Crew — Same World M4
 
-Ground Crew Mode now launches inside the normal Pilot Mode airport scene. For this first pushback milestone it uses Gate B06 so the worker spawns directly on the terminal apron with the terminal, jetbridges, NPC traffic, and scenery immediately around them.
+This build fixes the actual spawn-order bug. Ground Crew now launches the normal Pilot Mode world first, waits until the JX-200 has really spawned at Gate B06 on the apron, then swaps control to the worker/tug inside that already-running scene.
 
-Changes from M2:
-- fixed Ground Crew spawn to a real Pilot Mode apron stand
-- wider third-person airport camera so the terminal/apron are visible
-- visible brighter/larger pushback tug
-- same existing Pilot renderer/world; no separate Ground Crew renderer
-- Pilot Mode otherwise unchanged
-
-Controls: WASD move/drive, Shift walk faster, E interact, mouse drag camera, mouse wheel zoom.
+Pilot Mode is unchanged. Ground Crew still contains only the first pushback job loop.
