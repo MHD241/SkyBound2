@@ -1,5 +1,16 @@
-# Skybound Ground Crew — Same World M4
+# Skybound Ground Crew — M5
 
-This build fixes the actual spawn-order bug. Ground Crew now launches the normal Pilot Mode world first, waits until the JX-200 has really spawned at Gate B06 on the apron, then swaps control to the worker/tug inside that already-running scene.
+Ground Crew continues to use the exact Pilot Mode airport/world.
 
-Pilot Mode is unchanged. Ground Crew still contains only the first pushback job loop.
+## Ground Crew controls
+- **W** — gas / accelerate forward
+- **S** — brake; when stopped, continue holding to reverse
+- **A / D** — smooth left/right steering
+- **Space** — hard brake
+- **E** — enter/exit tug, connect/disconnect
+- **Shift** — faster walking
+- **Mouse drag** — camera
+
+Walking is camera-relative: W moves in the direction the camera is facing.
+
+Pushback now connects at the aircraft nose gear. The aircraft follows an articulated main-gear pivot rather than being glued to the tug.

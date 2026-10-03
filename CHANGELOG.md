@@ -1,7 +1,9 @@
-# M4
+# Ground Crew M5
 
-- Fixed Ground Crew switching before Pilot Mode had finished spawning at the selected gate.
-- Exposes current Pilot aircraft position/phase to Ground Crew.
-- Ground Crew waits for a confirmed grounded gate spawn before activating.
-- Worker/tug initialization now inherits the confirmed live Pilot gate coordinates.
-- No separate Ground Crew renderer is used.
+- Fixed tow connection to the front/nose gear instead of the tail side.
+- Reworked pushback into an articulated nose-hitch/main-gear-pivot model.
+- Replaced twitchy tug car handling with smoother plane-like steering response.
+- W is gas, S is brake then reverse when stopped, Space is hard brake.
+- Worker movement is now relative to the current camera direction.
+- Updated Ground Crew prompts and control hints.
+- Pilot Mode/world left unchanged.
