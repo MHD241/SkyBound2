@@ -1,16 +1,14 @@
-# Skybound Modern Menu v1
+# Changelog — v1.2 Ground Crew Milestone 1
 
-- Added dedicated title screen
-- Added interactive airport world map
-- Added aircraft hangar selector
-- Added automatic gate assignment on launch
-- Removed the old briefing/setup panel from active flight view
-- Added compact flight-system dock
-- ATC, COM, MAP, INFO, THR and AUDIO now open only when requested
-- Added universal × close button
-- Enforced one open panel at a time to prevent overlap
-- Added MENU button to return to the start flow by clean reload
-- Modernised active-flight top bar and HUD spacing
-- Preserved existing aircraft and simulator logic
-
-- v1.1: Fixed passenger boarding at dynamically assigned gates; removed A01-only boarding dependency.
+- Added Pilot / Ground Crew mode selection.
+- Pilot Mode launch path remains unchanged.
+- Added isolated WebGL Ground Crew scene.
+- Added third-person ground worker with WASD movement.
+- Added drivable pushback tug.
+- Added Ground-approved NPC pushback task.
+- Added forgiving nose-gear connection interaction.
+- Added articulated pushback physics: nose follows tug hitch; aircraft pivots around main gear; tail swings opposite nose movement.
+- Added tow-angle warning and high-angle speed restriction.
+- Added release point, straighten-and-stop requirement, disconnect action, and NPC taxi-away phase.
+- Added two airborne NPC aircraft for ambient airport traffic.
+- Passenger boarding bug intentionally not touched in this milestone.

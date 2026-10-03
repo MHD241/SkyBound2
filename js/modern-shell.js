@@ -1,6 +1,6 @@
 (function(){
   'use strict';
-  const state={airport:'NPT',plane:'JX-200',screen:'home',panel:null};
+  const state={airport:'NPT',plane:'JX-200',mode:'pilot',screen:'home',panel:null};
   const airports={
     NPT:{name:'Northpoint International',sub:'Primary metropolitan hub'},
     CBY:{name:'Coral Bay International',sub:'Coastal city gateway'},
@@ -22,7 +22,7 @@
     document.querySelectorAll('[data-sbm-airport-code]').forEach(n=>n.textContent=state.airport);
     document.querySelectorAll('[data-sbm-plane-name]').forEach(n=>n.textContent=p.name);
     const launch=document.getElementById('sbmLaunch');
-    if(launch){const invalid=state.airport==='GMI'&&state.plane!=='CONCORDE';launch.disabled=invalid;launch.textContent=invalid?'SUPERSONIC AIRCRAFT REQUIRED':'ENTER SIMULATOR'}
+    if(launch){const invalid=state.airport==='GMI'&&state.plane!=='CONCORDE';launch.disabled=invalid;launch.textContent=invalid?'SUPERSONIC AIRCRAFT REQUIRED':'ENTER SIMULATOR'} const next=document.getElementById('sbmAirportNext');if(next)next.textContent=state.mode==='ground'?'START GROUND SHIFT':'CHOOSE AIRCRAFT';
   }
   function buildMenu(){
     const menu=el('div','','');menu.id='sbmMenu';
@@ -31,6 +31,10 @@
         <div><div class="sbm-kicker">Skybound Flight Simulator</div><h1 class="sbm-logo">SKYBOUND<span>FLIGHT, REIMAGINED</span></h1><p class="sbm-lead">Choose your airport, pick an aircraft, and go straight into the simulator. The flight view stays clean; every system is one button away when you need it.</p><button class="sbm-primary" id="sbmStart">START FLIGHT</button></div>
         <div class="sbm-hero-card"><div class="sbm-kicker">LIVE WORLD</div><div class="sbm-flight-art"><div class="sbm-plane-art"></div></div><div class="sbm-card-stat"><div><small>AIRPORTS</small><b>3 WORLD HUBS</b></div><div><small>FLEET</small><b>3 AIRCRAFT</b></div><div><small>MODE</small><b>FREE FLIGHT</b></div></div></div>
       </div></section>
+      <section class="sbm-stage" data-stage="mode"><div class="sbm-shell"><div class="sbm-flow-head"><div><div class="sbm-kicker">Choose Mode</div><h2>What are you doing today?</h2></div><p>Pilot Mode stays exactly as it is. Ground Crew Mode puts you on the apron with NPC aircraft and a realistic pushback tug.</p></div><div class="sbm-mode-grid">
+        <button class="sbm-mode-card" id="sbmPilotMode"><span class="sbm-mode-icon">✈</span><div><small>FLIGHT DECK</small><h3>Pilot Mode</h3><p>Choose your airport and aircraft, then fly the existing Skybound simulator.</p></div><b>FLY →</b></button>
+        <button class="sbm-mode-card ground" id="sbmGroundMode"><span class="sbm-mode-icon">◆</span><div><small>APRON OPERATIONS</small><h3>Ground Crew</h3><p>Walk the airport, drive a tug, and push approved NPC aircraft from their gates.</p></div><b>START SHIFT →</b></button>
+      </div><div class="sbm-selection-foot"><div class="sbm-selection-summary">Pilot Mode is untouched in this build.</div><button class="sbm-secondary" data-back="home">BACK</button></div></div></section>
       <section class="sbm-stage" data-stage="map"><div class="sbm-shell"><div class="sbm-stepbar"><i class="on"></i><i></i></div><div class="sbm-flow-head"><div><div class="sbm-kicker">Step 1 · Airport</div><h2>Where are you flying from?</h2></div><p>Pick an airport directly from the world map. Supersonic Island is reserved for Concorde operations.</p></div><div class="sbm-map-card"><div class="sbm-map-grid"></div><div class="sbm-island npt"></div><div class="sbm-island cby"></div><div class="sbm-island gmi"></div>
         <button class="sbm-airport-pin selected" data-airport="NPT"><span><b>NPT · Northpoint</b><small>METROPOLITAN INTERNATIONAL</small></span></button>
         <button class="sbm-airport-pin" data-airport="CBY"><span><b>CBY · Coral Bay</b><small>COASTAL INTERNATIONAL</small></span></button>
@@ -47,10 +51,25 @@
       const plane=e.target.closest('[data-plane]');if(plane){if(state.airport==='GMI'&&plane.dataset.plane!=='CONCORDE')return;state.plane=plane.dataset.plane;refresh();return}
       const back=e.target.closest('[data-back]');if(back){setScreen(back.dataset.back);return}
     });
-    document.getElementById('sbmStart').addEventListener('click',()=>setScreen('map'));
-    document.getElementById('sbmAirportNext').addEventListener('click',()=>{if(state.airport==='GMI')state.plane='CONCORDE';setScreen('hangar')});
+    document.getElementById('sbmStart').addEventListener('click',()=>setScreen('mode'));
+    document.getElementById('sbmPilotMode').addEventListener('click',()=>{state.mode='pilot';setScreen('map')});
+    document.getElementById('sbmGroundMode').addEventListener('click',()=>{state.mode='ground';setScreen('map')});
+    document.getElementById('sbmAirportNext').addEventListener('click',()=>{if(state.mode==='ground'){launchGroundCrew();return}if(state.airport==='GMI')state.plane='CONCORDE';setScreen('hangar')});
     document.getElementById('sbmLaunch').addEventListener('click',launchGame);
     refresh();
+  }
+
+  async function launchGroundCrew(){
+    const btn=document.getElementById('sbmAirportNext');
+    const original=btn.textContent;btn.disabled=true;btn.textContent='STARTING SHIFT…';
+    try{
+      const start=Date.now();
+      while(!window.SkyboundGroundCrew && Date.now()-start<5000) await new Promise(r=>setTimeout(r,60));
+      if(!window.SkyboundGroundCrew) throw new Error('Ground Crew module did not load');
+      document.getElementById('sbmMenu')?.remove();
+      window.SkyboundGroundCrew.start({airport:state.airport});
+    }catch(err){console.error(err);btn.disabled=false;btn.textContent='TRY AGAIN';alert('Ground Crew Mode could not start. Reload once and try again.');}
+    finally{if(document.body.contains(btn)){btn.disabled=false;btn.textContent=original}}
   }
 
   function waitFor(sel,timeout=8000){return new Promise((resolve,reject)=>{const start=Date.now();const t=setInterval(()=>{const n=document.querySelector(sel);if(n){clearInterval(t);resolve(n)}else if(Date.now()-start>timeout){clearInterval(t);reject(new Error('Missing '+sel))}},80)})}

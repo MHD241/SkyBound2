@@ -1,16 +1,18 @@
-# Skybound Modern Menu Build
+# Skybound Modern Menu v1.2 — Ground Crew Milestone 1
 
-This build preserves the existing working simulator/aircraft and changes the player flow and HUD:
+This build keeps Pilot Mode unchanged and adds a separate Ground Crew Mode.
 
-1. Title screen with START FLIGHT
-2. Interactive fictional world map to choose the departure airport
-3. Aircraft hangar selection
-4. Straight into the simulator
+Ground Crew loop:
+1. Choose Ground Crew from the main menu.
+2. Choose an airport.
+3. Spawn on foot on the apron.
+4. Wait for Ground to approve a pushback task.
+5. Walk to Tug 21 and press E to enter.
+6. Drive to the assigned JX-200 and press E near the nose gear to connect.
+7. Reverse and steer the tug. The aircraft nose follows the hitch while the aircraft pivots around its main gear, so the tail swings opposite the nose movement.
+8. At the release point, straighten the tow angle, stop, press E to disconnect.
+9. The NPC takes over and taxis away.
 
-During flight, the large side panels are minimised by default. A compact dock opens ATC, COM radio, map, passenger/career info, throttle and audio one at a time. The × button closes the active panel. MENU reloads the simulator back to the new title screen.
+Controls: WASD move/drive, Shift walk faster, E interact, mouse drag camera, wheel zoom.
 
-Upload the full project contents to GitHub Pages and keep the `css` and `js` folders intact.
-
-
-## v1.1 boarding fix
-Passenger boarding now uses the actual departure gate assigned by the modern start menu instead of the old fixed A01 coordinates.
+No Passenger Mode changes were made in this milestone.
