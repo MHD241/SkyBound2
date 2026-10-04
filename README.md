@@ -1,36 +1,51 @@
-# Skybound Ground Crew M9 — Combined Shift
+# Skybound Ground Crew M10 — High Demand Baggage Operations
 
-This build keeps the approved M7/M8 Ground Crew world and handling, but combines jetbridge and pushback into one continuous Ground Crew shift.
+M10 builds directly on the approved M9/M7 ground handling feel and keeps Pilot Mode unchanged.
 
-## What changed
-- No Ground Crew role-selection screen.
-- Pushback tug and jetbridge are both available in the same shift.
-- Jetbridge is permanently present at Gate B06.
-- Jetbridge now includes a fixed terminal-side connector corridor so it visually belongs to the airport building.
-- Walk to the bridge controls to operate it; walk to the tug to drive it.
-- Pushback tow angle is unrestricted: no angle-based slowdown or artificial steering stop.
-- Disconnect at the release point only requires the tug to be stopped.
-- Existing worker movement, tug handling, NPC queue, ATC, and taxiway routing are retained.
+## Ground Crew shift
+Ground Crew is one continuous role. You can walk the same live Pilot airport and operate:
+- permanent jetbridges
+- pushback tug
+- baggage tractor with three carts
+- belt-loader vehicle
+- baggage hall / carousel
+- cargo compartment interaction
+- Ground ATC
+
+## High-demand airport
+- 32 parked/turnaround gate positions are populated for Ground Crew demand.
+- Parked aircraft start with a connected jetbridge.
+- Ground assigns one priority turnaround at a time while the rest of the apron stays busy.
+
+## Departure baggage flow
+1. Collect bags from the baggage-hall carousel with E.
+2. Drive the loaded baggage train to the aircraft.
+3. Park the carts beside the cargo service area.
+4. Fetch and connect the separate belt loader.
+5. Open the cargo compartment.
+6. Start the baggage transfer.
+7. Close the cargo compartment.
+8. Disconnect and clear the belt loader and baggage train.
+9. Disconnect/retract the jetbridge.
+10. Request pushback.
+
+Ground refuses pushback while the cargo door, belt loader, baggage train or jetbridge is unsafe/not clear.
+
+## Arrival baggage flow
+The next turns include arrival jobs:
+1. Bring empty baggage carts to the aircraft.
+2. Connect the belt loader.
+3. Open the cargo hold and unload bags.
+4. Close the hold and clear the belt loader.
+5. Drive the loaded carts to the baggage hall.
+6. Press E at the carousel to unload the bags.
 
 ## Controls
-### Worker
-- W/A/S/D — walk relative to the camera
-- Shift — faster walking
-- E — interact
+- WASD: walk / drive
+- Shift: faster walking
+- Space: vehicle brake
+- E: interact / enter / exit / connect / load / unload
+- Jetbridge: W/S extend-retract, A/D rotate, R/F height, Q exit controls
+- Mouse drag / wheel: camera
 
-### Tug
-- W — gas
-- S — brake, then reverse
-- A/D — steer
-- Space — hard brake
-- E — enter/connect/disconnect/exit
-
-### Jetbridge
-- E near terminal-side controls — operate bridge
-- W/S — extend/retract
-- A/D — rotate
-- R/F — raise/lower
-- E — dock when aligned
-- Q — leave controls
-
-Upload the entire contents of the ZIP to the repository, preserving the css/ and js/ folders.
+Upload the complete folder contents to GitHub Pages, preserving the `css` and `js` folders.
