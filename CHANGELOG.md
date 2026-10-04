@@ -1,6 +1,7 @@
-# Skybound Ground Crew M10.1 — Visibility Patch
+# M10.2
 
-- Moved the baggage hall substantially closer to Gate B06 / the active B-gate service area.
-- Moved the baggage tractor and belt loader beside the baggage hall.
-- Added a permanent service-area locator showing live distances to BAGGAGE HALL, TRACTOR and BELT LOADER.
-- No baggage workflow, pushback, jetbridge, ATC or driving logic changed.
+- Fixed M10.1 coordinate-basis mistake that left the service yard far from B06.
+- Baggage hall is now genuinely near the active B-gate apron.
+- Tractor and belt loader are parked directly nearby.
+- Added a tall visible service beacon to the baggage building.
+- Enlarged and brightened the live service locator.
