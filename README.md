@@ -1,21 +1,25 @@
-# Skybound Ground Crew M7
+# Skybound Ground Crew M8 — Jetbridge Role
 
-Built on the approved M6 Ground Crew handling. Pilot Mode and the existing Skybound world are unchanged.
+Built directly on the approved M7 Ground Crew build. Pushback handling, worker movement, tug steering, ATC, same-world airport, and taxiway routing are preserved.
 
-Ground Crew changes in M7:
-- Seven additional parked NPC JX-200 aircraft at nearby B-gates, with jobs recycled so the shift does not run out.
-- The FRONT of the tug now connects to the aircraft nose gear and W drives the tug forward during pushback.
-- Hitch/nose-wheel spacing tightened for a closer-looking connection.
-- NPC aircraft follow an apron/taxiway waypoint route after release instead of travelling straight across the airport.
-- Ground ATC panel with quick calls and typed messages/replies.
-- Pushback approval is issued through Ground ATC.
+## Ground Crew roles
+When Ground Crew loads, choose:
 
-Controls:
-- W: gas
-- S: brake, then reverse
-- A/D: steer
-- Space: hard brake
-- E: enter/exit/connect/disconnect
-- Mouse drag: camera
+- **Pushback** — the existing approved M7 tug job.
+- **Jetbridge** — a new gate-service role using the same live airport world.
 
-Upload all files/folders together to GitHub Pages.
+## Jetbridge job loop
+1. Choose **JETBRIDGE**.
+2. Walk to the bridge control pedestal beside Gate B06.
+3. Press **E** to operate the bridge.
+4. Use **W/S** to extend/retract.
+5. Use **A/D** to rotate around the terminal pivot.
+6. Use **R/F** to raise/lower the bridge head.
+7. Bring the bridge head close to the aircraft's forward-left passenger door.
+8. When **DOCK READY** appears, press **E**.
+9. The final short alignment is assisted and the bridge locks into place.
+10. Job complete.
+
+Press **Q** to leave jetbridge controls before docking.
+
+This milestone intentionally does not add jetbridge retraction/disconnect yet. That can be the next stable step after docking is approved.

@@ -1,8 +1,11 @@
-# Ground Crew M7
+# Ground Crew M8
 
-- Preserved the approved M6 worker/tug handling and same-world setup.
-- Added a persistent queue of additional NPC departures at nearby gates.
-- Changed towing so the tug's visible front/hitch connects at the nose gear.
-- Moved the connection point closer to the visual nose wheel.
-- Added waypoint-based post-release taxiing along apron/taxiway geometry.
-- Added interactive Ground ATC panel with quick calls, typed messages, replies and pushback approval.
+- Preserved the approved M7 pushback role unchanged.
+- Added Ground Crew role selection: Pushback or Jetbridge.
+- Added a visible articulated jetbridge to the existing Pilot/Ground airport scene.
+- Added terminal-side pivot, telescopic corridor, glass side panels, bridge head, support legs, and wheel bogies.
+- Added manual bridge rotation, extension, and height controls.
+- Added forward-left passenger door target logic.
+- Added forgiving `DOCK READY` tolerance and assisted final docking.
+- Added role-aware Ground/Ramp ATC replies.
+- Jetbridge role currently covers connection only; disconnect/retraction intentionally deferred.
