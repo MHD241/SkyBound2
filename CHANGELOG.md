@@ -1,7 +1,9 @@
-# M10.2
+# Changelog — M10.3
 
-- Fixed M10.1 coordinate-basis mistake that left the service yard far from B06.
-- Baggage hall is now genuinely near the active B-gate apron.
-- Tractor and belt loader are parked directly nearby.
-- Added a tall visible service beacon to the baggage building.
-- Enlarged and brightened the live service locator.
+- Fixed carousel interaction so E no longer exits the baggage tractor during baggage loading/unloading.
+- Added three-stage articulated baggage cart physics.
+- Rebuilt baggage hall into a large drive-through service building.
+- Moved baggage hall farther from the active B-gate apron.
+- Moved carousel inside the hall.
+- Made carousel belt static and animated only the baggage items around it.
+- Preserved all previously approved Ground Crew handling and job systems.

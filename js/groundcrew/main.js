@@ -25,7 +25,7 @@ class GroundCrew{
       tugX:0,tugZ:0,tugH:0,tugSpeed:0,tugSteer:0,
       planeX:0,planeZ:0,planeH:0,towAngle:0,extraPlanes:[],parkedBridges:[],
       bridgeBaseX:0,bridgeBaseZ:0,bridgeBaseH:0,bridgeH:0,bridgeExtend:8,bridgeHeight:3.8,bridgeDocked:true,bridgeControl:false,bridgeVisible:true,
-      bagX:0,bagZ:0,bagH:0,bagSpeed:0,bagSteer:0,bagLoaded:false,bagAtAircraft:false,
+      bagX:0,bagZ:0,bagH:0,bagSpeed:0,bagSteer:0,bagLoaded:false,bagAtAircraft:false,bagCarts:[],
       beltX:0,beltZ:0,beltH:0,beltSpeed:0,beltSteer:0,beltConnected:false,
       bagBuildingX:0,bagBuildingZ:0,bagBuildingH:0,carouselX:0,carouselZ:0,
       cargoX:0,cargoZ:0,cargoH:0,cargoDoorOpen:false,
@@ -90,9 +90,9 @@ class GroundCrew{
     s.planeX=ps.x;s.planeZ=ps.z;s.planeH=ps.heading||0;this.baseWorld={x:ps.x,z:ps.z,h:ps.heading||0};this.home={x:s.planeX,z:s.planeZ};
     const r=vehicleRight(s.planeH),f=vehicleForward(s.planeH);s.x=ps.x+r[0]*34+f[0]*18;s.z=ps.z+r[1]*34+f[1]*18;s.h=s.planeH;
     s.tugX=ps.x+f[0]*42+r[0]*18;s.tugZ=ps.z+f[1]*42+r[1]*18;s.tugH=s.planeH+Math.PI;
-    const building=this.localPoint(BASE_GATE.x+92,BASE_GATE.z-46),carousel=this.localPoint(BASE_GATE.x+92,BASE_GATE.z-58),bag=this.localPoint(BASE_GATE.x+66,BASE_GATE.z-18),belt=this.localPoint(BASE_GATE.x+116,BASE_GATE.z-18);
+    const building=this.localPoint(BASE_GATE.x+260,BASE_GATE.z-145),carousel=building,bag=this.localPoint(BASE_GATE.x+230,BASE_GATE.z-105),belt=this.localPoint(BASE_GATE.x+282,BASE_GATE.z-105);
     s.bagBuildingX=building.x;s.bagBuildingZ=building.z;s.bagBuildingH=this.baseWorld.h;s.carouselX=carousel.x;s.carouselZ=carousel.z;
-    s.bagX=bag.x;s.bagZ=bag.z;s.bagH=this.baseWorld.h;s.beltX=belt.x;s.beltZ=belt.z;s.beltH=this.baseWorld.h;
+    s.bagX=bag.x;s.bagZ=bag.z;s.bagH=this.baseWorld.h;s.beltX=belt.x;s.beltZ=belt.z;s.beltH=this.baseWorld.h;this.resetBagCarts();
     this.buildQueue();this.setupTurn('departure',BASE_GATE);s.ready=true;
     this.ui.help.textContent='WASD walk/drive · E interact · Space brake · jetbridge W/S extend A/D rotate R/F height Q exit';
     this.atcSay('GROUND',`Priority Gate ${this.activeGate.id}. Departure turnaround: load baggage first. ${s.demandCount} active turns in the queue.`);
@@ -123,7 +123,7 @@ class GroundCrew{
   nose(){const s=this.state,f=vehicleForward(s.planeH);return[s.planeX+f[0]*18.5,s.planeZ+f[1]*18.5]}
   hitch(){const s=this.state,f=vehicleForward(s.tugH);return[s.tugX+f[0]*3.45,s.tugZ+f[1]*3.45]}
   nearCargo(x,z,r=13){return dist(x,z,this.state.cargoX,this.state.cargoZ)<r}
-  nearCarousel(x,z,r=10){return dist(x,z,this.state.carouselX,this.state.carouselZ)<r}
+  nearCarousel(x,z,r=15){return dist(x,z,this.state.carouselX,this.state.carouselZ)<r}
 
   interact(){
     const s=this.state;if(!s.ready||s.bagTransferActive)return;
@@ -135,8 +135,10 @@ class GroundCrew{
     if(s.mode==='bag'){
       if(Math.abs(s.bagSpeed)>.5)return;
       if(this.nearCarousel(s.bagX,s.bagZ)){
-        if(this.turnType==='departure'&&!s.bagLoaded&&this.serviceStage==='dep-collect-bags'){s.bagLoaded=true;this.serviceStage='dep-cart-to-aircraft';this.atcSay('GROUND',`Departure bags loaded. Take the baggage train to Gate ${this.activeGate.id}.`);return}
-        if(this.turnType==='arrival'&&s.bagLoaded&&this.serviceStage==='arr-unload-carousel'){s.bagLoaded=false;this.serviceStage='arrival-complete';this.atcSay('GROUND',`Arrival bags delivered to carousel. Gate ${this.activeGate.id} baggage job complete.`);this.finishArrivalTurn();return}
+        if(this.turnType==='departure'&&!s.bagLoaded&&this.serviceStage==='dep-collect-bags'){s.bagLoaded=true;this.serviceStage='dep-cart-to-aircraft';this.atcSay('GROUND',`Departure bags loaded while you remain in the tractor. Take the baggage train to Gate ${this.activeGate.id}.`);return}
+        if(this.turnType==='arrival'&&s.bagLoaded&&this.serviceStage==='arr-unload-carousel'){s.bagLoaded=false;this.serviceStage='arrival-complete';this.atcSay('GROUND',`Arrival bags delivered to carousel. Stay in the tractor and clear the hall when ready.`);this.finishArrivalTurn();return}
+        // E at the carousel is reserved for baggage handling and never exits the tractor.
+        this.atcSay('GROUND',s.bagLoaded?'Baggage train is already loaded. Follow the current Ground task.':'No baggage transfer is assigned at this carousel yet.');return;
       }
       if(this.nearCargo(s.bagX,s.bagZ,16)){
         if(this.turnType==='departure'&&s.bagLoaded&&['dep-cart-to-aircraft','dep-position-belt'].includes(this.serviceStage)){s.bagAtAircraft=true;this.serviceStage='dep-position-belt';s.mode='walk';this.exitVehicleBeside('bag');this.atcSay('GROUND',`Baggage train positioned. Bring the belt loader to the cargo hold.`);return}
@@ -169,12 +171,26 @@ class GroundCrew{
     if(dist(s.x,s.z,s.beltX,s.beltZ)<7){s.mode='belt';s.beltSpeed=0;return}
   }
 
+  resetBagCarts(){
+    const s=this.state,f=vehicleForward(s.bagH);let hitchX=s.bagX-f[0]*3.0,hitchZ=s.bagZ-f[1]*3.0;s.bagCarts=[];
+    for(let i=0;i<3;i++){const h=s.bagH,cf=vehicleForward(h),front=2.15;s.bagCarts.push({x:hitchX-cf[0]*front,z:hitchZ-cf[1]*front,h});const c=s.bagCarts[i],rf=vehicleForward(c.h);hitchX=c.x-rf[0]*2.15;hitchZ=c.z-rf[1]*2.15}
+  }
+  updateBagCarts(dt){
+    const s=this.state;if(!Array.isArray(s.bagCarts)||s.bagCarts.length!==3)this.resetBagCarts();
+    const tf=vehicleForward(s.bagH);let hitchX=s.bagX-tf[0]*3.0,hitchZ=s.bagZ-tf[1]*3.0;
+    const speed=Math.abs(s.bagSpeed||0),front=2.15,rear=2.15,maxTurn=(1.25+speed*.11)*dt;
+    for(const c of s.bagCarts){
+      const dx=hitchX-c.x,dz=hitchZ-c.z,d=Math.hypot(dx,dz);if(d>.001){const desired=headingFromForward(dx/d,dz/d),dh=wrap(desired-c.h);c.h=wrap(c.h+clamp(dh,-maxTurn,maxTurn))}
+      const cf=vehicleForward(c.h);c.x=hitchX-cf[0]*front;c.z=hitchZ-cf[1]*front;hitchX=c.x-cf[0]*rear;hitchZ=c.z-cf[1]*rear;
+    }
+  }
+
   exitVehicleBeside(kind){const s=this.state;let x=s.x,z=s.z,h=s.h;if(kind==='tug'){x=s.tugX;z=s.tugZ;h=s.tugH}else if(kind==='bag'){x=s.bagX;z=s.bagZ;h=s.bagH}else if(kind==='belt'){x=s.beltX;z=s.beltZ;h=s.beltH}const r=vehicleRight(h);s.x=x+r[0]*4;s.z=z+r[1]*4;s.h=h}
   startBagTransfer(){const s=this.state;s.bagTransferActive=true;s.bagTransferProgress=0;s.bagTransferDir=this.turnType==='departure'?'load':'unload';this.transferT=0;this.serviceStage=this.turnType==='departure'?'dep-transfer':'arr-transfer';this.atcSay('GROUND',this.turnType==='departure'?'Baggage loading started.':'Baggage unloading started.')}
 
   update(dt){
     const s=this.state;if(!s.ready)return;this.updateCargoPoint();
-    if(s.mode==='walk')this.walk(dt);else if(s.mode==='bridge')this.bridgeDrive(dt);else if(s.mode==='tug')this.driveTug(dt);else if(s.mode==='bag')this.driveServiceVehicle(dt,'bag');else if(s.mode==='belt')this.driveServiceVehicle(dt,'belt');
+    if(s.mode==='walk')this.walk(dt);else if(s.mode==='bridge')this.bridgeDrive(dt);else if(s.mode==='tug')this.driveTug(dt);else if(s.mode==='bag')this.driveServiceVehicle(dt,'bag');else if(s.mode==='belt')this.driveServiceVehicle(dt,'belt');this.updateBagCarts(dt);
     if(this.bridgeJob==='bridge-docking')this.bridgeDock(dt);if(s.bagTransferActive)this.updateBagTransfer(dt);if(this.attached)this.tow(dt);if(this.job==='complete')this.taxi(dt);if(this.job==='between')this.nextJob(dt);
     this.checkServiceProgress();this.uiUpdate();
   }
@@ -214,7 +230,7 @@ class GroundCrew{
       if(!p&&dist(s.x,s.z,s.bagX,s.bagZ)<7)p='E · ENTER BAGGAGE TRACTOR';
       if(!p&&dist(s.x,s.z,s.beltX,s.beltZ)<7)p='E · ENTER BELT LOADER';
     }
-    if(s.mode==='bag'){if(this.nearCarousel(s.bagX,s.bagZ)&&((this.turnType==='departure'&&!s.bagLoaded)||(this.turnType==='arrival'&&s.bagLoaded)))p='E · '+(this.turnType==='departure'?'LOAD BAGS FROM CAROUSEL':'UNLOAD BAGS TO CAROUSEL');else if(this.nearCargo(s.bagX,s.bagZ,16))p='E · PARK BAGGAGE CARTS';else p='E · EXIT BAGGAGE TRACTOR'}
+    if(s.mode==='bag'){if(this.nearCarousel(s.bagX,s.bagZ)&&((this.turnType==='departure'&&!s.bagLoaded)||(this.turnType==='arrival'&&s.bagLoaded)))p='E · '+(this.turnType==='departure'?'LOAD BAGS · STAY IN TRACTOR':'UNLOAD BAGS · STAY IN TRACTOR');else if(this.nearCargo(s.bagX,s.bagZ,16))p='E · PARK BAGGAGE CARTS';else p='E · EXIT BAGGAGE TRACTOR'}
     if(s.mode==='belt'){if(s.beltConnected)p='E · DISCONNECT BELT LOADER';else if(this.nearCargo(s.beltX,s.beltZ,13))p='E · CONNECT BELT LOADER';else p='E · EXIT BELT LOADER'}
     if(s.mode==='tug'&&!this.attached&&this.job==='approved'&&dist(s.tugX,s.tugZ,...this.nose())<7)p='E · CONNECT FRONT TUG TO NOSE GEAR';if(this.attached&&this.job==='release'&&Math.abs(s.tugSpeed)<.5)p='E · DISCONNECT';
     this.ui.prompt.textContent=p;this.ui.prompt.classList.toggle('show',!!p);
