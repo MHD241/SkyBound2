@@ -1,9 +1,15 @@
-# Changelog — M10.3
+# M11 changelog
 
-- Fixed carousel interaction so E no longer exits the baggage tractor during baggage loading/unloading.
-- Added three-stage articulated baggage cart physics.
-- Rebuilt baggage hall into a large drive-through service building.
-- Moved baggage hall farther from the active B-gate apron.
-- Moved carousel inside the hall.
-- Made carousel belt static and animated only the baggage items around it.
-- Preserved all previously approved Ground Crew handling and job systems.
+- Removed the baggage hall, baggage tractor/carts, belt loader, cargo-door and baggage-carousel systems by rebuilding from M9.
+- Added manual marshalling to the combined Ground Crew shift.
+- Arrow-key aircraft guidance: straight, left and right.
+- Added continuously controlled marshaller arm height with Space.
+- Releasing Space lowers the arms smoothly from their current position.
+- Added crossed-wand STOP/X command on Down Arrow when arms are sufficiently raised.
+- Added animated visible marshalling arms and illuminated wands to the ground worker.
+- Added Sky Credits with rewards for accurate parking and deductions for mistakes.
+- No invisible terminal safety stop; terminal overrun becomes a collision penalty.
+- Increased visible parked Ground Crew traffic from 8 to 24 aircraft.
+- Preserved the existing jetbridge and approved pushback handling.
+
+- M11.1: neutral/no-arrow marshalling state now preserves aircraft speed and heading instead of decelerating.

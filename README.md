@@ -1,16 +1,31 @@
-# Skybound Ground Crew M10.3 — Baggage Hall & Cart Physics
+# Skybound Ground Crew M11 — Marshalling
 
-This update keeps the existing Ground Crew systems and improves the baggage operation only.
+This build removes baggage handling completely and returns to the stable pre-baggage Ground Crew foundation.
 
-## Changes
-- Baggage hall moved farther from Gate B06 into a dedicated service area.
-- Hall rebuilt as a much larger drive-through building with wide entry and exit openings.
-- Carousel moved inside the hall so the baggage tractor can be driven into the building and turned toward it.
-- Pressing E at the carousel now loads/unloads bags while keeping the player inside the baggage tractor.
-- Baggage train carts are now independently articulated trailers.
-- Each cart has its own hitch, position and heading, so carts lag and swing through turns instead of staying rigidly attached.
-- Visible drawbars were added to the baggage carts.
-- Carousel structure remains stationary; only the individual bags move around the carousel loop.
-- Existing pushback, jetbridge, ATC, worker movement and belt-loader workflow are unchanged.
+Ground Crew now includes:
+- same Pilot Mode airport world
+- permanent jetbridge operation
+- pushback tug with the approved M6/M9 handling
+- Ground ATC panel
+- high-demand parked NPC fleet
+- new manual aircraft marshalling
+- Sky Credits rewards and penalties
 
-Upload the entire folder contents to GitHub Pages and keep the css/js directory structure intact.
+## Marshalling controls
+
+Walk to the marshalling point and press **E**.
+
+- **Up Arrow** — guide aircraft straight
+- **Left / Right Arrow** — command aircraft steering
+- **Hold Space** — gradually raise both marshalling wands
+- **Release Space** — arms smoothly lower from their current height
+- **Down Arrow** — when the arms are high enough, cross the wands into the STOP/X signal
+
+There is no hidden stand safety stop. Poor positioning costs credits; a terminal collision receives a large credit penalty and resets the arrival.
+
+After a successful park, connect the jetbridge. After turnaround, disconnect/retract it and use the existing pushback job.
+
+
+## M11.1 control correction
+
+Releasing the arrow keys no longer slows the arriving aircraft. It maintains its current taxi speed and heading until another marshalling signal or the crossed-wand STOP command is given.
